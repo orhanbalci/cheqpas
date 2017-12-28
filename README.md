@@ -1,2 +1,2 @@
-# cheqpas
-CHEQuePArSer Overdraft Cheque Anouncement File Parser 
+# CHEQuePArSer
+Overdraft Cheque Anouncement File Parser 
