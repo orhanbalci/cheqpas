@@ -10,5 +10,6 @@ lazy val root = (project in file(".")).settings(
   name := "cheqpas",
   libraryDependencies += scalaTest              % Test,
   libraryDependencies += "org.rogach"           %% "scallop" % "3.1.1",
-  libraryDependencies += "com.github.pathikrit" %% "better-files" % "3.4.0"
+  libraryDependencies += "com.github.pathikrit" %% "better-files" % "3.4.0",
+  libraryDependencies += "org.tpolecat"         %% "atto-core" % "0.6.1"
 )
