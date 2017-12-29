@@ -14,4 +14,7 @@ class OverdraftChequeAnouncementParserSpec extends FunSuite {
     assert("" == name.parse("aaa").option.map(_.value).getOrElse(""))
   }
 
+  test("PersonTypeParser should parse strings of length 1") {
+    assert("T" == personType.parse("T").option.map(_.value).getOrElse(""))
+  }
 }
