@@ -3,8 +3,7 @@ import atto._
 import Atto._
 
 object Main extends Greeting with App {
-  //println(greeting)
-  println(OverdraftChequeAnouncementParser.overdraftChequeAnouncement parseOnly "aaaaa\n)
+  println(greeting)
 }
 
 trait Greeting {
