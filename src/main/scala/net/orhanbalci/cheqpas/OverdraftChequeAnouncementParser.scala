@@ -2,6 +2,7 @@ package net.orhanbalci.cheqpas;
 import atto._
 import Atto._
 import cats.implicits._
+import io.circe.Encoder, io.circe.generic.semiauto._
 
 case object OverdraftChequeAnouncementParser {
   def fixedInt(n: Int): Parser[Int] = {
@@ -121,5 +122,39 @@ case object OverdraftChequeAnouncementParser {
                                             taxNumber: TaxNumber,
                                             originalChequeAmount: OriginalChequeAmount)
   type OverdraftChequeAnouncement = List[OverdraftChequeAnouncementLine]
+
+  implicit val nameEncoder: Encoder[Name]                     = deriveEncoder[Name]
+  implicit val middleNameEncoder: Encoder[MiddleName]         = deriveEncoder[MiddleName]
+  implicit val surnameEncoder: Encoder[Surname]               = deriveEncoder[Surname]
+  implicit val fatherNameEncoder: Encoder[FatherName]         = deriveEncoder[FatherName]
+  implicit val motherNameEncoder: Encoder[MotherName]         = deriveEncoder[MotherName]
+  implicit val nameGroupEncoder: Encoder[NameGroup]           = deriveEncoder[NameGroup]
+  implicit val birthPlaceEncoder: Encoder[BirthPlace]         = deriveEncoder[BirthPlace]
+  implicit val birthPlaceCodeEncoder: Encoder[BirthPlaceCode] = deriveEncoder[BirthPlaceCode]
+  implicit val birthDateEncoder: Encoder[BirthDate]           = deriveEncoder[BirthDate]
+  implicit val identityNumberEncoder: Encoder[IdentityNumber] = deriveEncoder[IdentityNumber]
+  implicit val addressEncoder: Encoder[Address]               = deriveEncoder[Address]
+  implicit val addressCodeEncoder: Encoder[AddressCode]       = deriveEncoder[AddressCode]
+  implicit val statusCodeEncoder: Encoder[StatusCode]         = deriveEncoder[StatusCode]
+  implicit val chequeAccountNumberEncoder: Encoder[ChequeAccountNumber] =
+    deriveEncoder[ChequeAccountNumber]
+  implicit val drawingDateEncoder: Encoder[DrawingDate]       = deriveEncoder[DrawingDate]
+  implicit val submissionDateEncoder: Encoder[SubmissionDate] = deriveEncoder[SubmissionDate]
+  implicit val chequeSerialNumberEncoder: Encoder[ChequeSerialNumber] =
+    deriveEncoder[ChequeSerialNumber]
+  implicit val chequeSequenceNumberEncoder: Encoder[ChequeSequenceNumber] =
+    deriveEncoder[ChequeSequenceNumber]
+  implicit val chequeAmountEncoder: Encoder[ChequeAmount]       = deriveEncoder[ChequeAmount]
+  implicit val paymentTypeEncoder: Encoder[PaymentType]         = deriveEncoder[PaymentType]
+  implicit val paymentDateEncoder: Encoder[PaymentDate]         = deriveEncoder[PaymentDate]
+  implicit val bankCodeEncoder: Encoder[BankCode]               = deriveEncoder[BankCode]
+  implicit val branchCodeEncoder: Encoder[BranchCode]           = deriveEncoder[BranchCode]
+  implicit val isSharedAccountEncoder: Encoder[IsSharedAccount] = deriveEncoder[IsSharedAccount]
+  implicit val personTypeEncoder: Encoder[PersonType]           = deriveEncoder[PersonType]
+  implicit val taxNumberEncoder: Encoder[TaxNumber]             = deriveEncoder[TaxNumber]
+  implicit val originalChequeAmountEncoder: Encoder[OriginalChequeAmount] =
+    deriveEncoder[OriginalChequeAmount]
+  implicit val overdraftChequeAnouncementLineEncoder: Encoder[OverdraftChequeAnouncementLine] =
+    deriveEncoder[OverdraftChequeAnouncementLine]
 
 }
