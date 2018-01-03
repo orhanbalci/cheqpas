@@ -22,10 +22,12 @@ class Conf(settings: Seq[String]) extends ScallopConf(settings) {
 object Main extends App {
   val conf                 = new Conf(args);
   val overdraftFileContent = ScalaFile(conf.overdraftAnnouncementFile()).contentAsString;
-  println(
-    overdraftChequeAnouncement
-      .parse(overdraftFileContent)
-      .option
-      .getOrElse("Error parsing file")
-      .asJson)
+  val overdraftAnnouncement = overdraftChequeAnouncement
+    .parse(overdraftFileContent)
+    .option
+
+  overdraftAnnouncement match {
+    case Some(i) => println(i.asJson.noSpaces)
+    case None    => println("That didn't work.")
+  }
 }

@@ -156,5 +156,6 @@ case object OverdraftChequeAnouncementParser {
     deriveEncoder[OriginalChequeAmount]
   implicit val overdraftChequeAnouncementLineEncoder: Encoder[OverdraftChequeAnouncementLine] =
     deriveEncoder[OverdraftChequeAnouncementLine]
-
+  implicit val overdraftChequeAnouncementEncoder: Encoder[OverdraftChequeAnouncement] =
+    deriveEncoder[OverdraftChequeAnouncement]
 }
