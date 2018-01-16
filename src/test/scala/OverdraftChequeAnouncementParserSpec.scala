@@ -1,12 +1,13 @@
 import org.scalatest.FunSuite
 import net.orhanbalci.cheqpas.OverdraftChequeAnouncementParser._
 import atto._
+import atto.ParseResult._
 import Atto._
 
 class OverdraftChequeAnouncementParserSpec extends FunSuite {
   test("NameParser should parse strings of length 15") {
     assert(
-      "aaaaaaaaaaaaaaa" == name.parse("aaaaaaaaaaaaaaa").option.map(_.value).getOrElse("")
+      "ŞABAN          " == name.parse("ŞABAN          ").option.map(_.value).getOrElse("")
     )
   }
 
@@ -17,4 +18,5 @@ class OverdraftChequeAnouncementParserSpec extends FunSuite {
   test("PersonTypeParser should parse strings of length 1") {
     assert("T" == personType.parse("T").option.map(_.value).getOrElse(""))
   }
+  
 }

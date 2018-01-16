@@ -13,7 +13,7 @@ case object OverdraftChequeAnouncementParser {
   }
 
   def fixedString(n: Int): Parser[String] = {
-    count(n, letter).map(_.mkString)
+    count(n, letter | horizontalWhitespace | digit | oneOf(":/.,")).map(_.mkString)
   }
 
   val name                 = fixedString(15).map(Name.apply)
@@ -36,7 +36,7 @@ case object OverdraftChequeAnouncementParser {
   val chequeSequenceNumber = fixedString(10).map(ChequeSequenceNumber.apply)
   val chequeAmount         = fixedString(18).map(ChequeAmount.apply)
   val paymentType          = fixedString(2).map(PaymentType.apply)
-  val paymentDate          = fixedString(10).map(PaymentDate.apply)
+  val paymentDate          = fixedString(8).map(PaymentDate.apply)
   val bankCode             = fixedString(3).map(BankCode.apply)
   val branchCode           = fixedString(4).map(BranchCode.apply)
   val isSharedAccount      = fixedString(1).map(IsSharedAccount.apply)
@@ -66,7 +66,7 @@ case object OverdraftChequeAnouncementParser {
      personType,
      taxNumber,
      originalChequeAmount).mapN(OverdraftChequeAnouncementLine.apply)
-  val overdraftChequeAnouncement = sepBy(overdraftChequeAnouncementLine, char('\n'))
+  val overdraftChequeAnouncement = sepBy(overdraftChequeAnouncementLine, char('\r') <~ char('\n'))
 
   case class Name(value: String)
   case class MiddleName(value: String)

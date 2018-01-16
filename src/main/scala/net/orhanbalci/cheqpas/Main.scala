@@ -6,8 +6,9 @@ import better.files.{File => ScalaFile, _}
 import better.files.Dsl._
 import OverdraftChequeAnouncementParser._
 import OverdraftChequeAnouncementParser.overdraftChequeAnouncementLineEncoder
-import io.circe.syntax._
+import io.circe.syntax._ 
 import io.circe.generic.auto._
+import io.circe.Printer
 
 class Conf(settings: Seq[String]) extends ScallopConf(settings) {
   version("cheqpas 0.1.0 (c) 2017 Orhan Balci")
@@ -20,14 +21,31 @@ class Conf(settings: Seq[String]) extends ScallopConf(settings) {
 }
 
 object Main extends App {
-  val conf                 = new Conf(args);
-  val overdraftFileContent = ScalaFile(conf.overdraftAnnouncementFile()).contentAsString;
+  val conf = new Conf(args);
+  val overdraftFileContent =
+    ScalaFile(conf.overdraftAnnouncementFile()).contentAsString(charset = "Windows-1254");
+  
   val overdraftAnnouncement = overdraftChequeAnouncement
-    .parse(overdraftFileContent)
+    .parseOnly(overdraftFileContent)
     .option
+    
+  val printer = Printer(
+    preserveOrder = true,
+    dropNullValues = false,
+    indent = " ",
+    lbraceRight = " ",
+    rbraceLeft = " ",
+    lbracketRight = "\n",
+    rbracketLeft = "\n",
+    lrbracketsEmpty = "\n",
+    arrayCommaRight = "\n",
+    objectCommaRight = " ",
+    colonLeft = " ",
+    colonRight = " "
+  )
 
   overdraftAnnouncement match {
-    case Some(i) => println(i.asJson.noSpaces)
+    case Some(i) => println(i.asJson.pretty(printer))
     case None    => println("That didn't work.")
   }
 }
