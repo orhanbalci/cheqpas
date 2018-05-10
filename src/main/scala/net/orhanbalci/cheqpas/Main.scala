@@ -5,8 +5,7 @@ import org.rogach.scallop._
 import better.files.{File => ScalaFile, _}
 import better.files.Dsl._
 import OverdraftChequeAnouncementParser._
-import OverdraftChequeAnouncementParser.overdraftChequeAnouncementLineEncoder
-import io.circe.syntax._ 
+import io.circe.syntax._
 import io.circe.generic.auto._
 import io.circe.Printer
 
@@ -24,11 +23,11 @@ object Main extends App {
   val conf = new Conf(args);
   val overdraftFileContent =
     ScalaFile(conf.overdraftAnnouncementFile()).contentAsString(charset = "Windows-1254");
-  
+
   val overdraftAnnouncement = overdraftChequeAnouncement
     .parseOnly(overdraftFileContent)
     .option
-    
+
   val printer = Printer(
     preserveOrder = true,
     dropNullValues = false,
